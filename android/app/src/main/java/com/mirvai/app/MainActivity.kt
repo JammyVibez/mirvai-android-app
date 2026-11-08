@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
 
+    // Live deployed UI — change to file:///android_asset/index.html for fully offline
+    private val APP_URL = "https://mirvai-app-ten.vercel.app"
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(webView)
 
         setupWebView()
-        webView.loadUrl("file:///android_asset/index.html")
+        webView.loadUrl(APP_URL)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
