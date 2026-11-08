@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple elegant "M" mark for MIRVAI -->
+    <path
+        android:fillColor="#C9A86C"
+        android:pathData="M30,72 L30,36 L42,36 L54,58 L66,36 L78,36 L78,72 L68,72 L68,48 L56,68 L52,68 L40,48 L40,72 Z"/>
+</vector>
