@@ -1,0 +1,8 @@
+{
+  "name": "MIRVAI Luxury Real Estate",
+  "description": "A calm, elegant luxury property discovery app for Lagos Island and Mainland.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

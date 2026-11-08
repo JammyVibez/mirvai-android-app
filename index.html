@@ -2,218 +2,1410 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0c0b0a">
-<title>MIRVAI</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MIRVAI">
+<title>MIRVAI Luxury Real Estate</title>
+<meta name="description" content="A calm, elegant luxury property discovery app for Lagos Island and Mainland.">
+<meta property="og:title" content="MIRVAI Luxury Real Estate">
+<meta property="og:description" content="A calm, elegant luxury property discovery app for Lagos Island and Mainland.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3efe8;--bg2:#e8e2d8;--card:#fffcf7;--ink:#12100e;--ink2:#3a3530;--mute:#8a847c;--line:rgba(18,16,14,.08);--accent:#4a3c30;--accent2:#8b7355;--gold:#c4a574;--ease:cubic-bezier(.25,.1,.25,1)}
-*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f3efe8;
+  --bg2:#e8e2d8;
+  --card:#fffcf7;
+  --ink:#12100e;
+  --ink2:#3a3530;
+  --mute:#8a847c;
+  --line:rgba(18,16,14,.08);
+  --line2:rgba(18,16,14,.15);
+  --accent:#4a3c30;
+  --accent2:#8b7355;
+  --gold:#c4a574;
+  --gold-glow:#d4b88a;
+  --gold-deep:#8e734c;
+  --green:#2a7a4c;
+  --ease:cubic-bezier(.25,.1,.25,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#0a0908;color:var(--ink);font-family:Inter,system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
-.app{width:min(100%,420px);min-height:100vh;min-height:100dvh;margin:0 auto;background:var(--bg);position:relative;padding-bottom:88px;overflow-x:hidden}
-.view{display:none}.view.active{display:block;animation:fadeUp .5s var(--ease)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.hero{position:relative;height:78vh;min-height:460px;max-height:620px;overflow:hidden;background:#0c0b0a}
+.app{width:min(100%,430px);min-height:100vh;min-height:100dvh;margin:0 auto;background:var(--bg);position:relative;padding-bottom:88px;overflow-x:hidden;box-shadow:0 0 80px rgba(0,0,0,.6)}
+
+/* Header */
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:rgba(243,239,232,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.brand{cursor:pointer;display:flex;align-items:baseline;gap:6px}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.35em;color:var(--ink);line-height:1}
+.brand-city{font-size:8px;letter-spacing:.25em;color:var(--gold);font-weight:600;text-transform:uppercase}
+.header-actions{display:flex;align-items:center;gap:10px}
+.curr-toggle{background:var(--card);border:1px solid var(--line2);border-radius:100px;padding:4px 10px;font-size:10.5px;font-weight:600;color:var(--accent);cursor:pointer;display:flex;align-items:center;gap:3px;transition:border-color .2s}
+.curr-toggle:hover{border-color:var(--gold)}
+.btn-icon-header{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;transition:transform .15s}
+.btn-icon-header:active{transform:scale(.94)}
+
+/* Views */
+.view{display:none}
+.view.active{display:block;animation:fadeUp .45s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Hero Section */
+.hero{position:relative;height:74vh;min-height:460px;max-height:600px;overflow:hidden;background:#0c0b0a}
 .hero-track{position:absolute;inset:0}
 .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease);overflow:hidden}
 .hero-slide.on{opacity:1;z-index:1}
 .hero-slide video,.hero-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform 8s linear}
 .hero-slide.on video,.hero-slide.on img{transform:scale(1)}
-.hero-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(12,11,10,.35) 0%,rgba(12,11,10,.1) 35%,rgba(12,11,10,.55) 65%,rgba(12,11,10,.92) 100%);pointer-events:none}
-.hero-top{position:absolute;top:0;left:0;right:0;z-index:4;padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.hero-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(12,11,10,.3) 0%,rgba(12,11,10,.15) 35%,rgba(12,11,10,.6) 65%,rgba(12,11,10,.95) 100%);pointer-events:none}
+.hero-top{position:absolute;top:0;left:0;right:0;z-index:4;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
 .hero-logo{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;letter-spacing:.5em;color:rgba(255,252,247,.95);text-indent:.5em}
-.hero-menu{width:36px;height:36px;border:1px solid rgba(255,252,247,.25);background:rgba(255,252,247,.08);backdrop-filter:blur(10px);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,252,247,.9);cursor:pointer}
-.hero-content{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 28px 48px;color:#fffcf7}
-.hero-kicker{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:12px}
-.hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:38px;line-height:1.12;letter-spacing:-.02em;margin-bottom:10px}
-.hero-title em{font-style:italic;font-weight:400}
-.hero-sub{font-size:13px;line-height:1.65;color:rgba(255,252,247,.62);font-weight:300;max-width:270px;margin-bottom:20px}
-.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:rgba(255,252,247,.12);border:1px solid rgba(255,252,247,.28);backdrop-filter:blur(10px);color:#fffcf7;font-family:Inter,sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
-.hero-dots{position:absolute;bottom:18px;left:0;right:0;z-index:4;display:flex;justify-content:center;gap:7px}
+.hero-tagline{font-size:9px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:600}
+.hero-content{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 24px 44px;color:#fffcf7}
+.hero-kicker{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:38px;line-height:1.12;letter-spacing:-.02em;margin-bottom:8px}
+.hero-title em{font-style:italic;font-weight:400;color:var(--gold-glow)}
+.hero-sub{font-size:13px;line-height:1.65;color:rgba(255,252,247,.72);font-weight:300;max-width:280px;margin-bottom:20px}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--gold);color:#12100e;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:0;cursor:pointer;border-radius:4px;transition:background .2s}
+.hero-cta:hover{background:var(--gold-glow)}
+.hero-dots{position:absolute;bottom:14px;left:0;right:0;z-index:4;display:flex;justify-content:center;gap:6px}
 .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,252,247,.35);border:0;padding:0;cursor:pointer;transition:all .35s}
 .dot.on{background:#fffcf7;width:18px;border-radius:4px}
-.trust{display:flex;justify-content:center;gap:20px;padding:18px 20px;border-bottom:1px solid var(--line);background:var(--card)}
-.trust span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:500}
-.segment{display:flex;margin:24px 24px 0;background:var(--bg2);border-radius:100px;padding:3px}
-.seg{flex:1;border:0;background:0;padding:11px;border-radius:100px;font-family:Inter,sans-serif;font-size:12px;font-weight:500;color:var(--mute);cursor:pointer;transition:all .35s var(--ease)}
-.seg.on{background:var(--card);color:var(--ink);box-shadow:0 1px 6px rgba(18,16,14,.07)}
-.showcase{margin:24px 18px 0}
-.show-card{background:var(--card);border-radius:6px;overflow:hidden;box-shadow:0 10px 40px rgba(18,16,14,.07);cursor:pointer}
-.show-img{height:240px;object-fit:cover;width:100%;display:block}
-.show-body{padding:20px 22px 24px}
-.show-meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);font-weight:500;margin-bottom:8px}
-.show-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.2;margin-bottom:6px}
-.show-desc{font-size:13px;line-height:1.6;color:var(--mute);font-weight:300;margin-bottom:14px}
-.show-link{font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.03em;border:0;background:0;cursor:pointer;font-family:Inter,sans-serif;padding:0}
-.collection{margin:40px 0 0}
-.col-head{padding:0 24px 14px;display:flex;align-items:baseline;justify-content:space-between}
+
+/* Trust Bar */
+.trust{display:flex;justify-content:center;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--card)}
+.trust span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500}
+.trust .dot-sep{color:var(--gold);font-size:8px}
+
+/* Segment switcher */
+.segment{display:flex;margin:20px 20px 0;background:var(--bg2);border-radius:100px;padding:3px}
+.seg{flex:1;border:0;background:0;padding:10px;border-radius:100px;font-family:Inter,sans-serif;font-size:12px;font-weight:600;color:var(--mute);cursor:pointer;transition:all .3s var(--ease)}
+.seg.on{background:var(--card);color:var(--ink);box-shadow:0 1px 6px rgba(18,16,14,.08)}
+
+/* Showcase cards */
+.showcase{margin:20px 16px 0}
+.show-card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(18,16,14,.06);position:relative}
+.show-img-wrap{position:relative;height:240px;overflow:hidden;cursor:pointer}
+.show-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.show-card:hover .show-img{transform:scale(1.02)}
+.btn-save-corner{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;background:rgba(255,252,247,.9);backdrop-filter:blur(10px);border:1px solid rgba(18,16,14,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:3;transition:transform .15s}
+.btn-save-corner:active{transform:scale(.9)}
+.btn-save-corner.saved svg path{fill:var(--gold);stroke:var(--gold)}
+.badge-price-corner{position:absolute;bottom:14px;left:14px;background:rgba(18,16,14,.88);backdrop-filter:blur(8px);color:var(--gold);font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;letter-spacing:.02em}
+.show-body{padding:18px 20px 22px}
+.show-meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:6px}
+.show-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.2;margin-bottom:6px;cursor:pointer}
+.show-desc{font-size:13px;line-height:1.6;color:var(--mute);font-weight:300;margin-bottom:16px}
+.show-specs{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
+.spec-item{font-size:11px;color:var(--ink2);display:flex;align-items:center;gap:4px;font-weight:500}
+.show-actions{display:flex;align-items:center;justify-content:space-between}
+.show-link{font-size:11px;font-weight:600;color:var(--ink);letter-spacing:.08em;text-transform:uppercase;border:0;background:0;cursor:pointer;font-family:Inter,sans-serif;padding:0;display:inline-flex;align-items:center;gap:4px}
+.btn-view-quick{background:var(--ink);color:#fffcf7;padding:9px 14px;border-radius:4px;font-size:11px;font-weight:600;border:0;cursor:pointer}
+
+/* Rail Horizontal Collection */
+.collection{margin:36px 0 0}
+.col-head{padding:0 20px 14px;display:flex;align-items:baseline;justify-content:space-between}
 .col-head h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400}
-.col-head button{border:0;background:0;font-size:11px;color:var(--accent2);font-weight:500;cursor:pointer;font-family:Inter,sans-serif}
-.rail{display:flex;gap:12px;overflow-x:auto;padding:0 24px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.col-head button{border:0;background:0;font-size:11px;color:var(--accent2);font-weight:600;cursor:pointer;font-family:Inter,sans-serif}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:0 20px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
-.tile{flex:0 0 150px;scroll-snap-align:start;cursor:pointer}
-.tile img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:10px;display:block}
-.tile h4{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;margin-bottom:2px}
+.tile{flex:0 0 170px;scroll-snap-align:start;background:var(--card);border-radius:6px;overflow:hidden;box-shadow:0 6px 18px rgba(18,16,14,.05);position:relative}
+.tile-img-wrap{position:relative;height:150px;cursor:pointer}
+.tile-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.tile-price{position:absolute;bottom:8px;left:8px;background:rgba(18,16,14,.85);color:var(--gold);font-size:10px;font-weight:600;padding:3px 7px;border-radius:3px}
+.tile-save{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,252,247,.9);display:flex;align-items:center;justify-content:center;border:0;cursor:pointer}
+.tile-save.saved svg path{fill:var(--gold);stroke:var(--gold)}
+.tile-body{padding:12px}
+.tile h4{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;margin-bottom:2px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile p{font-size:11px;color:var(--mute);font-weight:300}
-.moment{margin:48px 24px;text-align:center;padding:32px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.moment p{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;font-style:italic;line-height:1.45;color:var(--ink2);max-width:280px;margin:0 auto}
-.moment .attr{margin-top:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
-.invite{margin:32px 18px 48px;padding:36px 24px;background:var(--ink);color:#f3efe8;border-radius:6px;text-align:center}
-.invite .kicker{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:500}
-.invite h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1.25;margin-bottom:10px}
-.invite p{font-size:13px;line-height:1.65;color:rgba(243,239,232,.58);font-weight:300;max-width:240px;margin:0 auto 22px}
-.btn-light{display:inline-block;background:0;color:#f3efe8;border:1px solid rgba(243,239,232,.28);padding:12px 24px;font-size:11px;font-weight:500;letter-spacing:.1em;cursor:pointer;font-family:Inter,sans-serif;text-transform:uppercase}
-.detail-top{position:relative;height:320px}
-.detail-top img{width:100%;height:100%;object-fit:cover}
-.detail-back{position:absolute;top:18px;left:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,252,247,.9);backdrop-filter:blur(8px);border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:2}
-.detail-body{padding:28px 24px 40px}
-.detail-meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);font-weight:500;margin-bottom:10px}
-.detail-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;line-height:1.15;margin-bottom:14px}
-.detail-story{font-size:14px;line-height:1.75;color:var(--mute);font-weight:300;margin-bottom:28px}
-.detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.fact label{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
-.fact span{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink)}
-.btn-dark{width:100%;padding:15px;background:var(--ink);color:#f3efe8;border:0;font-family:Inter,sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;cursor:pointer;text-transform:uppercase}
-.brand-mini{padding:24px 24px 0;text-align:center}
-.brand-mini .mark{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;letter-spacing:.5em;color:var(--ink);text-indent:.5em}
-.brand-mini .line{width:24px;height:1px;background:var(--gold);margin:8px auto 0;opacity:.65}
-.page{padding:28px 24px 40px}
-.page .kicker{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent2);font-weight:500;margin-bottom:12px}
-.page h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;margin-bottom:12px}
-.page .lead{font-size:14px;line-height:1.7;color:var(--mute);font-weight:300;max-width:290px}
-.empty{margin-top:56px;text-align:center}
-.empty .sym{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--bg2);margin-bottom:12px}
-.empty p{font-size:14px;line-height:1.7;color:var(--mute);font-weight:300}
-.form{margin-top:28px}
-.form label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:500;margin:18px 0 8px}
+
+/* Market Pulse Box */
+.market-pulse{margin:32px 20px 0;background:var(--card);border-radius:8px;padding:18px 20px;border:1px solid var(--line)}
+.market-pulse .title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.market-pulse p{font-size:12px;line-height:1.6;color:var(--ink2)}
+.market-pulse .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink)}
+.stat-lbl{font-size:9.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+
+/* Private Advisory Invitation */
+.advisory-invite{margin:36px 16px 0;padding:28px 22px;background:linear-gradient(145deg,#151310 0%,#201914 100%);color:#fffcf7;border-radius:8px;position:relative;border:1px solid rgba(196,165,116,.3);text-align:center}
+.advisory-invite .kicker{font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.advisory-invite h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:8px}
+.advisory-invite p{font-size:13px;line-height:1.6;color:rgba(255,252,247,.7);margin-bottom:20px;max-width:300px;margin-left:auto;margin-right:auto}
+.btn-gold{background:var(--gold);color:#12100e;padding:12px 22px;border:0;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+
+/* Quotes / Moments */
+.moment{margin:40px 20px;text-align:center;padding:28px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.moment p{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;font-style:italic;line-height:1.45;color:var(--ink2);max-width:300px;margin:0 auto}
+.moment .attr{margin-top:10px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+
+/* ===================================================
+   EXPLORE VIEW (#explore)
+   =================================================== */
+.explore-head{padding:20px 20px 10px}
+.explore-head h1{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;margin-bottom:10px}
+.search-filter-box{display:flex;gap:10px;margin-bottom:14px}
+.search-input-wrap{flex:1;position:relative}
+.search-input-wrap input{width:100%;padding:12px 14px 12px 36px;background:var(--card);border:1px solid var(--line);border-radius:8px;font-family:Inter,sans-serif;font-size:13px;outline:0;color:var(--ink)}
+.search-input-wrap input:focus{border-color:var(--accent)}
+.search-input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mute)}
+.filter-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.filter-chips::-webkit-scrollbar{display:none}
+.chip{padding:6px 14px;background:var(--card);border:1px solid var(--line);border-radius:100px;font-size:11px;font-weight:500;color:var(--mute);cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--ink);color:#fffcf7;border-color:var(--ink)}
+.explore-grid{padding:0 20px 20px;display:flex;flex-direction:column;gap:18px}
+
+/* ===================================================
+   DETAIL VIEW (#detail)
+   =================================================== */
+.detail-top{position:relative;height:340px;background:#0c0b0a}
+.detail-top img{width:100%;height:100%;object-fit:cover;display:block}
+.detail-back{position:absolute;top:18px;left:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,252,247,.92);backdrop-filter:blur(8px);border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:10}
+.detail-save-btn{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,252,247,.92);backdrop-filter:blur(8px);border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);z-index:10}
+.detail-save-btn.saved svg path{fill:var(--gold);stroke:var(--gold)}
+.detail-price-badge{position:absolute;bottom:20px;left:20px;background:rgba(18,16,14,.92);backdrop-filter:blur(10px);color:var(--gold);padding:8px 14px;border-radius:6px;font-size:15px;font-weight:600;letter-spacing:.02em;border:1px solid rgba(196,165,116,.3)}
+.detail-body{padding:26px 20px 48px}
+.detail-meta{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:8px}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;line-height:1.15;margin-bottom:12px}
+.detail-story{font-size:14px;line-height:1.75;color:var(--mute);font-weight:300;margin-bottom:24px}
+.detail-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fact label{display:block;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:3px}
+.fact span{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ink)}
+
+/* Amenities badges */
+.amenities-wrap{margin-bottom:28px}
+.amenities-title{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:10px}
+.amenities-grid{display:flex;flex-wrap:wrap;gap:8px}
+.amenity-tag{background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:6px;font-size:11px;color:var(--ink2);display:inline-flex;align-items:center;gap:6px}
+
+/* Mortgage Estimator inside detail */
+.calculator-box{background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--line);margin-bottom:28px}
+.calc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.calc-head h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500}
+.calc-result{text-align:right}
+.calc-val{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--green)}
+.calc-lbl{font-size:9px;color:var(--mute);text-transform:uppercase}
+.slider-group{margin-bottom:12px}
+.slider-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-bottom:6px}
+.slider-group input[type=range]{width:100%;accent-color:var(--ink)}
+
+/* Detail Actions */
+.detail-cta-row{display:flex;flex-direction:column;gap:10px}
+.btn-dark{width:100%;padding:16px;background:var(--ink);color:#fffcf7;border:0;font-family:Inter,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;cursor:pointer;text-transform:uppercase;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-wa-green{width:100%;padding:14px;background:#25d366;color:#ffffff;border:0;font-family:Inter,sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;text-transform:uppercase;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* ===================================================
+   SAVED VIEW (#saved)
+   =================================================== */
+.saved-page{padding:24px 20px 48px}
+.saved-header{margin-bottom:20px}
+.saved-header h1{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;margin-bottom:4px}
+.saved-header p{font-size:13px;color:var(--mute)}
+.saved-list{display:flex;flex-direction:column;gap:16px}
+.saved-item-card{background:var(--card);border-radius:8px;padding:14px;border:1px solid var(--line);display:flex;gap:14px;align-items:center;position:relative}
+.saved-item-img{width:90px;height:90px;object-fit:cover;border-radius:6px;flex-shrink:0;cursor:pointer}
+.saved-item-info{flex:1;min-width:0}
+.saved-item-info h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.saved-item-meta{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.saved-item-price{font-size:12.5px;font-weight:600;color:var(--gold)}
+.saved-item-remove{border:0;background:0;color:var(--mute);font-size:11px;cursor:pointer;margin-top:6px;display:inline-block}
+.saved-bottom-actions{margin-top:24px;padding:18px;background:var(--card);border-radius:8px;border:1px solid var(--line)}
+
+/* Empty States */
+.empty{margin-top:48px;text-align:center;padding:32px 20px}
+.empty .sym{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--bg2);margin-bottom:12px}
+.empty h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:8px}
+.empty p{font-size:13px;line-height:1.6;color:var(--mute);margin-bottom:20px;max-width:280px;margin-left:auto;margin-right:auto}
+
+/* ===================================================
+   ENQUIRE VIEW (#enquire)
+   =================================================== */
+.page{padding:26px 20px 48px}
+.page .kicker{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:8px}
+.page h1{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;margin-bottom:8px}
+.page .lead{font-size:13px;line-height:1.65;color:var(--mute);max-width:320px}
+.form{margin-top:24px}
+.form label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin:18px 0 6px}
 .form label:first-child{margin-top:0}
-.form input,.form select,.form textarea{width:100%;padding:13px 0;border:0;border-bottom:1px solid var(--line);background:0;font-family:Inter,sans-serif;font-size:15px;color:var(--ink);outline:0;appearance:none}
-.form input:focus,.form select:focus,.form textarea:focus{border-bottom-color:var(--accent)}
-.form textarea{resize:none;min-height:80px}
-.success{text-align:center;padding:48px 20px}
-.success h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin:16px 0 10px}
-.success p{font-size:14px;line-height:1.7;color:var(--mute);font-weight:300}
-.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,420px);background:rgba(243,239,232,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 6px max(12px,env(safe-area-inset-bottom));z-index:50}
-.tab{border:0;background:0;color:var(--mute);font-family:Inter,sans-serif;font-size:9px;font-weight:500;letter-spacing:.05em;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:6px 12px}
-.tab.on{color:var(--ink)}.tab svg{opacity:.45}.tab.on svg{opacity:1}
-.toast{display:none;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--ink);color:#f3efe8;padding:13px 22px;font-size:12px;z-index:60;max-width:85%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.form input,.form select,.form textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--card);font-family:Inter,sans-serif;font-size:14px;color:var(--ink);outline:0}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:var(--ink)}
+.form textarea{resize:none;min-height:90px}
+.success{text-align:center;padding:36px 16px}
+.vip-ticket{background:var(--card);border:1px solid var(--gold);border-radius:10px;padding:24px 20px;margin:24px 0;text-align:left;position:relative}
+.vip-ticket::before{content:"MIRVAI PRIVATE PASS";position:absolute;top:12px;right:16px;font-size:8px;letter-spacing:.25em;color:var(--gold);font-weight:700}
+.ticket-code{font-family:monospace;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:2px;margin:8px 0 16px}
+
+/* ===================================================
+   STUNNING LUXURY PROFILE VIEW (#profile)
+   =================================================== */
+.profile-page{padding:24px 18px 60px}
+
+/* Sovereign Membership Card */
+.member-card{background:linear-gradient(135deg,#161412 0%,#26201a 50%,#110f0d 100%);color:#fffcf7;border-radius:16px;padding:26px 22px;border:1px solid rgba(196,165,116,.45);box-shadow:0 16px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,252,247,.15);position:relative;overflow:hidden;margin-bottom:28px}
+.member-card::after{content:"M";position:absolute;right:-15px;bottom:-35px;font-family:'Cormorant Garamond',serif;font-size:150px;font-weight:700;color:rgba(196,165,116,.06);pointer-events:none;line-height:1}
+.member-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
+.member-seal{display:flex;align-items:center;gap:8px}
+.member-seal-monogram{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#c4a574 0%,#8e734c 100%);display:flex;align-items:center;justify-content:center;color:#0c0b0a;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px}
+.member-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.3em;color:#fffcf7;font-weight:600}
+.member-badge{background:rgba(196,165,116,.18);border:1px solid rgba(196,165,116,.5);color:var(--gold);font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border-radius:100px;font-weight:600}
+
+.member-mid{margin-bottom:24px}
+.member-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;letter-spacing:.02em;margin-bottom:4px;color:#fffcf7}
+.member-tier{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500}
+
+.member-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding-top:16px;border-top:1px solid rgba(255,252,247,.1)}
+.member-id-label{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,252,247,.5);margin-bottom:2px}
+.member-id-val{font-family:monospace;font-size:12px;letter-spacing:1px;color:rgba(255,252,247,.9)}
+.member-meta-val{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* Assigned Senior Partner Card */
+.advisor-card{background:var(--card);border-radius:12px;padding:22px 20px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(18,16,14,.04);margin-bottom:26px}
+.advisor-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.advisor-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 4px 12px rgba(196,165,116,.25)}
+.advisor-info h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.advisor-title{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:4px}
+.advisor-status{font-size:10.5px;color:#2a7a4c;display:flex;align-items:center;gap:4px;font-weight:500}
+.advisor-status::before{content:"";width:6px;height:6px;border-radius:50%;background:#2a7a4c}
+.advisor-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-advisor-action{padding:10px;background:var(--bg2);border:0;border-radius:6px;font-size:11px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s}
+.btn-advisor-action:hover{background:var(--gold);color:#12100e}
+
+/* Portfolio Criteria Section */
+.profile-section-title{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.profile-section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.criteria-card{background:var(--card);border-radius:10px;padding:18px 20px;border:1px solid var(--line);margin-bottom:22px}
+.crit-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}
+.crit-row:last-child{border-bottom:0;padding-bottom:4px}
+.crit-row:first-child{padding-top:4px}
+.crit-label{color:var(--mute)}
+.crit-val{font-weight:600;color:var(--ink);text-align:right}
+
+/* Bespoke Concierge Privileges */
+.privilege-card{background:var(--card);border-radius:10px;padding:16px 18px;border:1px solid var(--line);margin-bottom:12px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:transform .15s,border-color .2s}
+.privilege-card:hover{border-color:var(--gold)}
+.privilege-card:active{transform:scale(.98)}
+.priv-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#1c1916 0%,#2e2720 100%);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.priv-info{flex:1}
+.priv-info h4{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;margin-bottom:2px}
+.priv-info p{font-size:11px;color:var(--mute);line-height:1.4}
+.priv-arrow{color:var(--accent2);font-size:14px}
+
+/* Client Preferences & App Options */
+.pref-card{background:var(--card);border-radius:10px;border:1px solid var(--line);overflow:hidden;margin-bottom:24px}
+.pref-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.pref-row:last-child{border-bottom:0}
+.pref-row .lbl{font-weight:500;color:var(--ink)}
+.pref-row .sublbl{font-size:10.5px;color:var(--mute)}
+.pref-row .val{font-weight:600;color:var(--gold);display:flex;align-items:center;gap:4px}
+
+/* Dedicated Download Hub link in settings (discreet) */
+.standalone-download-link{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:var(--bg2);border-radius:8px;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:12px;margin-top:10px;transition:background .2s}
+.standalone-download-link:hover{background:var(--card)}
+.standalone-download-link span.badge-pill{font-size:9.5px;background:var(--ink);color:#fffcf7;padding:3px 8px;border-radius:100px;font-weight:600}
+
+/* Bottom Navigation Bar (Clean 5 tabs) */
+.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,430px);background:rgba(243,239,232,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px max(11px,env(safe-area-inset-bottom));z-index:50}
+.tab{border:0;background:0;color:var(--mute);font-family:Inter,sans-serif;font-size:10px;font-weight:500;letter-spacing:.04em;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;position:relative;flex:1}
+.tab.on{color:var(--ink);font-weight:600}
+.tab svg{opacity:.45;transition:opacity .2s}
+.tab.on svg{opacity:1;stroke:var(--ink)}
+.tab-badge{position:absolute;top:2px;right:calc(50% - 16px);background:var(--gold);color:#12100e;font-size:9px;font-weight:700;border-radius:10px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px}
+
+/* Toast */
+.toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#f3efe8;padding:12px 20px;font-size:12px;z-index:70;max-width:88%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.4);border-radius:6px;border:1px solid rgba(196,165,116,.3)}
 </style>
 </head>
 <body>
 <div class="app">
-<main id="home" class="view active">
-  <section class="hero">
-    <div class="hero-track" id="heroTrack"></div>
-    <div class="hero-shade"></div>
-    <div class="hero-top">
-      <div class="hero-logo">MIRVAI</div>
-      <button class="hero-menu" onclick="toast('Menu')" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="18" r="1"/></svg></button>
+
+  <!-- Clean Luxury Header -->
+  <header class="app-header">
+    <div class="brand" onclick="go('home')">
+      <span class="brand-name">MIRVAI</span>
+      <span class="brand-city">LAGOS</span>
     </div>
-    <div class="hero-content">
-      <p class="hero-kicker">Property · Lagos</p>
-      <h1 class="hero-title">A quieter way<br>to find your<br><em>place</em>.</h1>
-      <p class="hero-sub">Homes and land across the Island and Mainland — presented without the noise.</p>
-      <button class="hero-cta" onclick="document.getElementById('segment').scrollIntoView({behavior:'smooth'})">Explore →</button>
+    <div class="header-actions">
+      <button class="curr-toggle" onclick="toggleCurrency()" title="Toggle Currency">
+        <span id="currLabel">NGN (₦)</span>
+      </button>
+      <button class="btn-icon-header" onclick="go('profile')" aria-label="Private Client Profile" title="Private Client Profile">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
     </div>
-    <div class="hero-dots" id="heroDots"></div>
-  </section>
-  <div class="trust"><span>By appointment</span><span>·</span><span>Lagos</span><span>·</span><span>Guided</span></div>
-  <div class="segment" id="segment">
-    <button class="seg on" data-a="island" onclick="setArea('island',this)">Island</button>
-    <button class="seg" data-a="mainland" onclick="setArea('mainland',this)">Mainland</button>
-  </div>
-  <section class="showcase" id="show"></section>
-  <section class="collection">
-    <div class="col-head"><h3>Also considered</h3><button onclick="toast('Full collection')">See all</button></div>
-    <div class="rail" id="rail"></div>
-  </section>
-  <div class="moment"><p>“We don’t rush the decision. We help you see the property clearly.”</p><div class="attr">— Mirvai</div></div>
-  <section class="invite">
-    <p class="kicker">Private enquiry</p>
-    <h2>Tell us what you’re looking for.</h2>
-    <p>A short conversation about area, budget and timing.</p>
-    <button class="btn-light" onclick="go('enquire')">Begin enquiry</button>
-  </section>
-</main>
-<main id="detail" class="view">
-  <div class="detail-top">
-    <button class="detail-back" onclick="go('home')" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <img id="dImg" src="" alt="">
-  </div>
-  <div class="detail-body">
-    <div class="detail-meta" id="dMeta"></div>
-    <h1 class="detail-title" id="dTitle"></h1>
-    <p class="detail-story" id="dStory"></p>
-    <div class="detail-facts">
-      <div class="fact"><label>Area</label><span id="dArea"></span></div>
-      <div class="fact"><label>Type</label><span id="dType"></span></div>
-      <div class="fact"><label>Status</label><span>By appointment</span></div>
-      <div class="fact"><label>Guidance</label><span>Private</span></div>
+  </header>
+
+  <!-- ==============================================
+       HOME VIEW
+       ============================================== -->
+  <main id="home" class="view active">
+    <section class="hero">
+      <div class="hero-track" id="heroTrack"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-top">
+        <div class="hero-logo">MIRVAI</div>
+        <div class="hero-tagline">Private Acquisitions</div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-kicker">Lagos Luxury Properties</p>
+        <h1 class="hero-title">A quieter way<br>to find your<br><em>place</em>.</h1>
+        <p class="hero-sub">Off-market residences and prime land across Ikoyi, Victoria Island, Banana Island & Ikeja GRA.</p>
+        <button class="hero-cta" onclick="document.getElementById('segment').scrollIntoView({behavior:'smooth'})">Explore Portfolio →</button>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+    </section>
+
+    <div class="trust">
+      <span>By appointment</span>
+      <span class="dot-sep">✦</span>
+      <span>Lagos Prime</span>
+      <span class="dot-sep">✦</span>
+      <span>Private Guidance</span>
     </div>
-    <button class="btn-dark" onclick="go('enquire')">Request a viewing</button>
-  </div>
-</main>
-<main id="saved" class="view">
-  <div class="brand-mini"><div class="mark">MIRVAI</div><div class="line"></div></div>
-  <div class="page"><p class="kicker">Your list</p><h1>Saved</h1><p class="lead">Homes you set aside will gather here once your account is connected.</p><div class="empty"><div class="sym">—</div><p>Nothing saved yet.</p></div></div>
-</main>
-<main id="enquire" class="view">
-  <div class="brand-mini"><div class="mark">MIRVAI</div><div class="line"></div></div>
-  <div class="page" id="enquireForm">
-    <p class="kicker">Private enquiry</p>
-    <h1>How can we help?</h1>
-    <p class="lead">Share a few details. We’ll reply within a few hours.</p>
-    <form class="form" onsubmit="event.preventDefault();showSuccess();">
-      <label>Name</label><input type="text" required placeholder="Your full name">
-      <label>Contact</label><input type="text" required placeholder="Email or WhatsApp">
-      <label>Interest</label><select><option>A home to live in</option><option>Land</option><option>Investment</option><option>Development partnership</option></select>
-      <label>Preferred area</label><select><option>Lagos Island</option><option>Lagos Mainland</option><option>Open to both</option></select>
-      <label>Notes</label><textarea placeholder="Budget, timing, anything that matters…"></textarea>
-      <button type="submit" class="btn-dark">Send enquiry</button>
-    </form>
-  </div>
-  <div class="page success" id="enquireOk" style="display:none">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold)">✓</div>
-    <h2>Thank you.</h2>
-    <p>We’ve received your note. Someone from Mirvai will be in touch within a few hours.</p>
-    <button class="btn-dark" style="margin-top:28px;max-width:200px" onclick="go('home')">Back home</button>
-  </div>
-</main>
-<main id="profile" class="view">
-  <div class="brand-mini"><div class="mark">MIRVAI</div><div class="line"></div></div>
-  <div class="page"><p class="kicker">Account</p><h1>Profile</h1><p class="lead">Preferences and history will appear here when accounts are live.</p><div class="empty"><div class="sym">—</div><p>Sign-in coming soon.</p></div></div>
-</main>
-<nav class="tabs">
-  <button class="tab on" data-t="home" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z"/></svg>Home</button>
-  <button class="tab" data-t="saved" onclick="go('saved')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Saved</button>
-  <button class="tab" data-t="enquire" onclick="go('enquire')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Enquire</button>
-  <button class="tab" data-t="profile" onclick="go('profile')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile</button>
-</nav>
-<div class="toast" id="toast"></div>
+
+    <!-- Area Switcher -->
+    <div class="segment" id="segment">
+      <button class="seg on" data-a="island" onclick="setArea('island',this)">Lagos Island</button>
+      <button class="seg" data-a="mainland" onclick="setArea('mainland',this)">Lagos Mainland</button>
+    </div>
+
+    <!-- Featured Property Showcase -->
+    <section class="showcase" id="show"></section>
+
+    <!-- Rail of other properties -->
+    <section class="collection">
+      <div class="col-head">
+        <h3 id="railTitle">Also Considered</h3>
+        <button onclick="go('explore')">View All (8)</button>
+      </div>
+      <div class="rail" id="rail"></div>
+    </section>
+
+    <!-- Market Pulse -->
+    <section class="market-pulse">
+      <div class="title">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Lagos Prime Market Intelligence
+      </div>
+      <p>Luxury residential yields in Ikoyi and Banana Island have sustained an annualized rental return of 8.2% in 2026, driven by high expatriate and executive demand.</p>
+      <div class="stat-row">
+        <div>
+          <div class="stat-val">+14.2%</div>
+          <div class="stat-lbl">YoY Capital Growth</div>
+        </div>
+        <div>
+          <div class="stat-val">100% C of O</div>
+          <div class="stat-lbl">Governor’s Consent</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Private Consultation Invitation -->
+    <section class="advisory-invite">
+      <p class="kicker">Private Client Advisory</p>
+      <h3>Confidential Acquisitions</h3>
+      <p>A direct, private consultation regarding off-market land holdings, waterfront villas, and bespoke portfolio management.</p>
+      <button class="btn-gold" onclick="go('enquire')">Begin Private Enquiry →</button>
+    </section>
+
+    <div class="moment">
+      <p>“We don’t rush the decision. We help you see the property clearly.”</p>
+      <div class="attr">— Mirvai Luxury Advisory</div>
+    </div>
+  </main>
+
+  <!-- ==============================================
+       EXPLORE / CATALOG VIEW (#explore)
+       ============================================== -->
+  <main id="explore" class="view">
+    <div class="explore-head">
+      <p class="hero-kicker">Full Portfolio</p>
+      <h1>Curated Residences</h1>
+      
+      <div class="search-filter-box">
+        <div class="search-input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Search Ikoyi, VI, Lekki, Ikeja GRA…" oninput="filterExplore()">
+        </div>
+      </div>
+
+      <div class="filter-chips">
+        <button class="chip on" data-cat="all" onclick="filterCategory('all',this)">All</button>
+        <button class="chip" data-cat="Island" onclick="filterCategory('Island',this)">Island</button>
+        <button class="chip" data-cat="Mainland" onclick="filterCategory('Mainland',this)">Mainland</button>
+        <button class="chip" data-cat="Villa" onclick="filterCategory('Villa',this)">Villas</button>
+        <button class="chip" data-cat="Terrace" onclick="filterCategory('Terrace',this)">Terraces</button>
+        <button class="chip" data-cat="Residence" onclick="filterCategory('Residence',this)">Residences</button>
+      </div>
+    </div>
+
+    <div class="explore-grid" id="exploreGrid"></div>
+  </main>
+
+  <!-- ==============================================
+       DETAIL VIEW (#detail)
+       ============================================== -->
+  <main id="detail" class="view">
+    <div class="detail-top">
+      <button class="detail-back" onclick="goBack()" aria-label="Back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="detail-save-btn" id="dSaveBtn" onclick="toggleSaveCurrent()" aria-label="Save">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+      </button>
+      <img id="dImg" src="" alt="Property detail">
+      <div class="detail-price-badge" id="dPrice">₦0</div>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-meta" id="dMeta"></div>
+      <h1 class="detail-title" id="dTitle"></h1>
+      <p class="detail-story" id="dStory"></p>
+
+      <div class="detail-facts">
+        <div class="fact"><label>Location</label><span id="dArea"></span></div>
+        <div class="fact"><label>Typology</label><span id="dType"></span></div>
+        <div class="fact"><label>Bedrooms</label><span id="dBeds">4 En-suite</span></div>
+        <div class="fact"><label>Built Area</label><span id="dSqm">620 sqm</span></div>
+        <div class="fact"><label>Title Document</label><span>Gov. Consent / C of O</span></div>
+        <div class="fact"><label>Availability</label><span>Private Appointment</span></div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="amenities-wrap">
+        <div class="amenities-title">Curated Features</div>
+        <div class="amenities-grid" id="dAmenities">
+          <span class="amenity-tag">✦ Private Pool</span>
+          <span class="amenity-tag">✦ 24/7 Security</span>
+          <span class="amenity-tag">✦ Waterfront Pier</span>
+          <span class="amenity-tag">✦ Smart Home Tech</span>
+          <span class="amenity-tag">✦ 100% Backup Solar</span>
+        </div>
+      </div>
+
+      <!-- Interactive Mortgage / Payment Estimator -->
+      <div class="calculator-box">
+        <div class="calc-head">
+          <h4>Payment Estimator</h4>
+          <div class="calc-result">
+            <div class="calc-val" id="calcMonthly">₦0/mo</div>
+            <div class="calc-lbl">Estimated Installment</div>
+          </div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-lbl">
+            <span>Down Payment: <strong id="dpPctVal">30%</strong></span>
+            <span id="dpAmount">₦0</span>
+          </div>
+          <input type="range" id="dpSlider" min="10" max="60" step="5" value="30" oninput="updateCalculator()">
+        </div>
+        <div class="slider-group">
+          <div class="slider-lbl">
+            <span>Tenure: <strong id="tenureVal">10 Years</strong></span>
+            <span>Annual Rate: 16%</span>
+          </div>
+          <input type="range" id="tenureSlider" min="3" max="25" step="1" value="10" oninput="updateCalculator()">
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="detail-cta-row">
+        <button class="btn-dark" onclick="enquireCurrentProperty()">
+          Request Private Viewing
+        </button>
+        <button class="btn-wa-green" onclick="chatWhatsappCurrent()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.8-.23-.09-.39-.13-.56.13-.17.25-.64.8-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.16 0-.42.06-.64.3-.22.25-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+          Chat on WhatsApp
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==============================================
+       SAVED VIEW (#saved)
+       ============================================== -->
+  <main id="saved" class="view">
+    <div class="saved-page">
+      <div class="saved-header">
+        <p class="hero-kicker">Your Portfolio</p>
+        <h1>Saved Residences</h1>
+        <p>Shortlisted properties saved to your private device cache.</p>
+      </div>
+
+      <div class="saved-list" id="savedList"></div>
+
+      <div class="empty" id="savedEmpty" style="display:none">
+        <div class="sym">—</div>
+        <h3>No saved properties</h3>
+        <p>Tap the bookmark heart icon on any residence in Ikoyi or Mainland to add it to your shortlist.</p>
+        <button class="btn-dark" style="max-width:200px;margin:0 auto" onclick="go('explore')">Browse Portfolio</button>
+      </div>
+
+      <div class="saved-bottom-actions" id="savedActions" style="display:none">
+        <button class="btn-dark" onclick="enquireAllSaved()">
+          Request Viewings for Shortlist (<span id="savedCountBtn">0</span>)
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==============================================
+       ENQUIRE VIEW (#enquire)
+       ============================================== -->
+  <main id="enquire" class="view">
+    <div class="page" id="enquireForm">
+      <p class="kicker">Confidential Consultation</p>
+      <h1>Private Enquiry</h1>
+      <p class="lead">Connect directly with our dedicated Lagos property partners. We respond within two hours.</p>
+      <form class="form" onsubmit="event.preventDefault();submitEnquiry();">
+        <label>Full Name</label>
+        <input type="text" id="eqName" required placeholder="Dr. / Mr. / Mrs. Full Name">
+
+        <label>Direct Phone or WhatsApp</label>
+        <input type="tel" id="eqPhone" required placeholder="+234 or international number">
+
+        <label>Email Address</label>
+        <input type="email" id="eqEmail" required placeholder="name@domain.com">
+
+        <label>Property or Area of Interest</label>
+        <input type="text" id="eqProperty" placeholder="e.g. Limestone Townhouse, Ikoyi">
+
+        <label>Type of Interest</label>
+        <select id="eqInterest">
+          <option>Private Residence (To Live In)</option>
+          <option>Investment Portfolio (Rental Yield)</option>
+          <option>Prime Waterfront Land</option>
+          <option>Development Partnership</option>
+        </select>
+
+        <label>Budget Parameter</label>
+        <select id="eqBudget">
+          <option>₦300M – ₦600M ($250k – $500k)</option>
+          <option>₦600M – ₦1.2B ($500k – $1M)</option>
+          <option>₦1.2B – ₦3B ($1M – $2.5M)</option>
+          <option>₦3B+ ($2.5M+ Super-Prime)</option>
+        </select>
+
+        <label>Notes & Desired Timing</label>
+        <textarea id="eqNotes" placeholder="Preferred viewing dates, architectural requirements, or any specific nuances…"></textarea>
+
+        <button type="submit" class="btn-dark" style="margin-top:20px">Submit Confidential Enquiry</button>
+      </form>
+    </div>
+
+    <!-- Enquiry Success Page -->
+    <div class="page success" id="enquireOk" style="display:none">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold)">✓</div>
+      <h2>Enquiry Received.</h2>
+      <p class="lead" style="margin:0 auto 20px">Your consultation request has been routed to our Lagos Managing Director.</p>
+      
+      <div class="vip-ticket">
+        <div style="font-size:11px;color:var(--mute);text-transform:uppercase">VIP Priority Reference</div>
+        <div class="ticket-code" id="ticketCode">MIR-2026-0000</div>
+        <p style="font-size:12px;color:var(--ink2);line-height:1.6">A dedicated private advisory associate will reach out via WhatsApp and Email within two hours.</p>
+      </div>
+
+      <button class="btn-wa-green" id="btnTicketWa" onclick="openWaWithTicket()">
+        Instant Follow-up via WhatsApp
+      </button>
+
+      <button class="btn-dark" style="margin-top:14px" onclick="go('home')">Return to Home</button>
+    </div>
+  </main>
+
+  <!-- ==============================================
+       ELEGANT, STUNNING LUXURY PROFILE VIEW (#profile)
+       ============================================== -->
+  <main id="profile" class="view">
+    <div class="profile-page">
+
+      <!-- Sovereign Membership Metal Card -->
+      <div class="member-card">
+        <div class="member-top">
+          <div class="member-seal">
+            <div class="member-seal-monogram">M</div>
+            <span class="member-brand">MIRVAI</span>
+          </div>
+          <div class="member-badge">Cercle Privé</div>
+        </div>
+
+        <div class="member-mid">
+          <h2 class="member-name" id="profileClientName">Dr. Tariq Adeleke</h2>
+          <div class="member-tier">Sovereign Allocation • Global Access</div>
+        </div>
+
+        <div class="member-bottom">
+          <div>
+            <div class="member-id-label">Private Client Pass</div>
+            <div class="member-id-val">MRV-9042-LGS</div>
+          </div>
+          <div class="member-meta-val">Verified Tier</div>
+        </div>
+      </div>
+
+      <!-- Assigned Senior Partner & Private Advisor -->
+      <div class="advisor-card">
+        <div class="advisor-head">
+          <img class="advisor-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80" alt="Folashade Adeleke">
+          <div class="advisor-info">
+            <h3>Folashade Adeleke</h3>
+            <div class="advisor-title">Senior Partner · Prime Acquisitions</div>
+            <div class="advisor-status">Available for Consultation</div>
+          </div>
+        </div>
+        <div class="advisor-actions">
+          <button class="btn-advisor-action" onclick="window.open('https://wa.me/2348000000000?text=Hello%20Folashade,%20requesting%20a%20private%20portfolio%20briefing%20regarding%20MIRVAI%20Lagos%20residences.','_blank')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2"/></svg>
+            WhatsApp
+          </button>
+          <button class="btn-advisor-action" onclick="requestBriefingCall()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Request Call
+          </button>
+        </div>
+      </div>
+
+      <!-- Private Acquisition Criteria -->
+      <div class="profile-section-title">Acquisition Parameters</div>
+      <div class="criteria-card">
+        <div class="crit-row">
+          <span class="crit-label">Preferred Enclaves</span>
+          <span class="crit-val">Old Ikoyi, Banana Island, Ikeja GRA</span>
+        </div>
+        <div class="crit-row">
+          <span class="crit-label">Target Typologies</span>
+          <span class="crit-val">Waterfront Villas & Penthouses</span>
+        </div>
+        <div class="crit-row">
+          <span class="crit-label">Capital Parameter</span>
+          <span class="crit-val">₦1.5B – ₦4.5B ($1.0M – $3.2M)</span>
+        </div>
+        <div class="crit-row">
+          <span class="crit-label">Title Requirement</span>
+          <span class="crit-val">Governor’s Consent & Clean C of O</span>
+        </div>
+        <div class="crit-row">
+          <span class="crit-label">Confidentiality Tier</span>
+          <span class="crit-val">Level 1 (Strictly Off-Market)</span>
+        </div>
+      </div>
+
+      <!-- Bespoke Concierge Privileges -->
+      <div class="profile-section-title">Concierge Privileges</div>
+      
+      <div class="privilege-card" onclick="bookPrivilege('Marine & Yacht Viewing Charter')">
+        <div class="priv-icon">🛥</div>
+        <div class="priv-info">
+          <h4>Marine & Yacht Charter</h4>
+          <p>Inspect waterfront properties via private boat along the Lagos Lagoon.</p>
+        </div>
+        <span class="priv-arrow">→</span>
+      </div>
+
+      <div class="privilege-card" onclick="bookPrivilege('Sovereign Title & Legal Audit')">
+        <div class="priv-icon">⚖</div>
+        <div class="priv-info">
+          <h4>Sovereign Title & Legal Audit</h4>
+          <p>48-hour title deeds verification with Lagos State Land Registry.</p>
+        </div>
+        <span class="priv-arrow">→</span>
+      </div>
+
+      <div class="privilege-card" onclick="bookPrivilege('Helicopter Aerial Survey')">
+        <div class="priv-icon">🚁</div>
+        <div class="priv-info">
+          <h4>Helicopter Aerial Survey</h4>
+          <p>Private helipad landing and coastal land parcel inspections.</p>
+        </div>
+        <span class="priv-arrow">→</span>
+      </div>
+
+      <!-- Financial & App Preferences -->
+      <div class="profile-section-title">Client Preferences</div>
+      <div class="pref-card">
+        <div class="pref-row" onclick="toggleCurrency()">
+          <div>
+            <div class="lbl">Valuation Currency</div>
+            <div class="sublbl">Display valuations in NGN (₦) or USD ($)</div>
+          </div>
+          <div class="val" id="profileCurrVal">NGN (₦)</div>
+        </div>
+        <div class="pref-row" onclick="togglePrivacyMode()">
+          <div>
+            <div class="lbl">Discreet Valuation Mode</div>
+            <div class="sublbl">Conceals property prices in public views</div>
+          </div>
+          <div class="val" id="privacyVal">Off</div>
+        </div>
+        <div class="pref-row" onclick="go('saved')">
+          <div>
+            <div class="lbl">Private Shortlist</div>
+            <div class="sublbl">Manage properties saved to your cache</div>
+          </div>
+          <div class="val" id="profileSavedCount">0 items →</div>
+        </div>
+      </div>
+
+      <!-- Discreet Native Shell Hub Link -->
+      <div class="profile-section-title">Digital Editions</div>
+      <a href="/download" class="standalone-download-link" target="_blank">
+        <div>
+          <div style="font-weight:600;margin-bottom:2px">MIRVAI Mobile Suite</div>
+          <div style="font-size:11px;color:var(--mute)">Dedicated Android APK & iOS Profile package hub</div>
+        </div>
+        <span class="badge-pill">View Hub →</span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Clean 5-Tab Bottom Navigation (Home, Explore, Saved, Enquire, Profile) -->
+  <nav class="tabs">
+    <button class="tab on" data-t="home" onclick="go('home')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z"/></svg>
+      Home
+    </button>
+    <button class="tab" data-t="explore" onclick="go('explore')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Explore
+    </button>
+    <button class="tab" data-t="saved" onclick="go('saved')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+      Saved
+      <span class="tab-badge" id="tabSavedBadge" style="display:none">0</span>
+    </button>
+    <button class="tab" data-t="enquire" onclick="go('enquire')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Enquire
+    </button>
+    <button class="tab" data-t="profile" onclick="go('profile')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
 </div>
+
 <script>
-const heroSlides=[
+/* =======================================================
+   MIRVAI Luxury Properties Data
+   ======================================================= */
+const heroSlides = [
   {type:'video',src:'https://videos.pexels.com/video-files/7578541/7578541-uhd_2560_1440_30fps.mp4',poster:'https://images.pexels.com/videos/7578541/apartment-at-home-business-buy-7578541.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'},
   {type:'image',src:'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80'},
   {type:'video',src:'https://videos.pexels.com/video-files/17224730/17224730-uhd_2560_1440_30fps.mp4',poster:'https://images.pexels.com/videos/17224730/architectural-design-architectural-designs-beautiful-home-beautiful-sunset-17224730.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'},
   {type:'image',src:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80'},
   {type:'image',src:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'}
 ];
-const props={island:{featured:{id:'limestone',title:'The Limestone Residence',meta:'Lagos Island · Terrace',area:'Ikoyi',type:'Terrace duplex',story:'A quiet duplex of pale stone and deep timber, set back from the avenue. Morning light moves slowly across the courtyard.',img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',desc:'A quiet duplex of pale stone and deep timber in Ikoyi.'},list:[{id:'palm',title:'Palm Court',loc:'Ikoyi',img:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',meta:'Lagos Island · Villa',type:'Villa',story:'Shaded terraces and a private garden, a short walk from the lagoon.'},{id:'harbour',title:'Harbour House',loc:'Victoria Island',img:'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',meta:'Lagos Island · Residence',type:'Residence',story:'Glass and concrete oriented toward the water, designed for calm evenings.'},{id:'shore',title:'Shoreline Villa',loc:'Banana Island',img:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',meta:'Lagos Island · Villa',type:'Villa',story:'A secluded residence with long views and generous indoor–outdoor rooms.'},{id:'orchid',title:'Orchid Terrace',loc:'Lekki Phase 1',img:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',meta:'Lagos Island · Terrace',type:'Terrace',story:'Contemporary lines, soft interiors, and a quiet street presence.'}]},mainland:{featured:{id:'courtyard',title:'The Courtyard House',meta:'Lagos Mainland · Family home',area:'Ikeja GRA',type:'Family home',story:'Light-filled rooms arranged around a private garden court. Built for everyday ease and long weekends.',img:'https://images.unsplash.com/photo-1600047509807-ba8f99d2cd00?w=1200&q=80',desc:'Light-filled rooms around a private garden court in Ikeja GRA.'},list:[{id:'gra',title:'GRA Townhouse',loc:'Ikeja GRA',img:'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',meta:'Lagos Mainland · Townhouse',type:'Townhouse',story:'Classic proportions on a tree-lined street in the GRA.'},{id:'yaba',title:'Yaba Residence',loc:'Yaba',img:'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80',meta:'Lagos Mainland · Residence',type:'Residence',story:'A refined home near the city’s creative quarter.'},{id:'park',title:'Parkview Home',loc:'Parkview',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80',meta:'Lagos Mainland · Home',type:'Home',story:'Quiet streets, solid construction, and room to grow.'},{id:'suru',title:'Surulere Court',loc:'Surulere',img:'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80',meta:'Lagos Mainland · Court',type:'Court',story:'A composed family house with a private courtyard.'}]}};
-let area='island',heroIdx=0,heroTimer;
-function buildHero(){const track=document.getElementById('heroTrack'),dots=document.getElementById('heroDots');track.innerHTML='';dots.innerHTML='';heroSlides.forEach((s,i)=>{const el=document.createElement('div');el.className='hero-slide'+(i===0?' on':'');if(s.type==='video'){el.innerHTML=`<video muted loop playsinline preload="metadata" poster="${s.poster||''}"><source src="${s.src}" type="video/mp4"></video>`;}else{el.innerHTML=`<img src="${s.src}" alt="">`;}track.appendChild(el);const d=document.createElement('button');d.className='dot'+(i===0?' on':'');d.onclick=()=>goHero(i);dots.appendChild(d);});playHeroVideo(0);clearInterval(heroTimer);heroTimer=setInterval(()=>goHero((heroIdx+1)%heroSlides.length),5500);}
-function goHero(i){heroIdx=i;document.querySelectorAll('.hero-slide').forEach((s,n)=>s.classList.toggle('on',n===i));document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('on',n===i));playHeroVideo(i);}
-function playHeroVideo(i){document.querySelectorAll('.hero-slide video').forEach((v,n)=>{if(n===i){v.play().catch(()=>{});}else{v.pause();}});}
-function render(){const d=props[area];document.getElementById('show').innerHTML=`<article class="show-card" onclick="openDetail('${d.featured.id}')"><img class="show-img" src="${d.featured.img}" alt=""><div class="show-body"><div class="show-meta">${d.featured.meta}</div><h2 class="show-title">${d.featured.title}</h2><p class="show-desc">${d.featured.desc}</p><button class="show-link">View residence →</button></div></article>`;document.getElementById('rail').innerHTML=d.list.map(p=>`<article class="tile" onclick="openDetail('${p.id}')"><img src="${p.img}" alt=""><h4>${p.title}</h4><p>${p.loc}</p></article>`).join('');}
-function setArea(a,btn){area=a;document.querySelectorAll('.seg').forEach(s=>s.classList.toggle('on',s.dataset.a===a));render();}
-function findProp(id){for(const k of Object.keys(props)){if(props[k].featured.id===id)return props[k].featured;const f=props[k].list.find(x=>x.id===id);if(f)return{...f,area:f.loc,desc:f.story};}return null;}
-function openDetail(id){const p=findProp(id);if(!p)return;document.getElementById('dImg').src=p.img;document.getElementById('dMeta').textContent=p.meta||'';document.getElementById('dTitle').textContent=p.title;document.getElementById('dStory').textContent=p.story||p.desc||'';document.getElementById('dArea').textContent=p.area||p.loc||'';document.getElementById('dType').textContent=p.type||'Residence';go('detail');}
-function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.t===id||(id==='detail'&&t.dataset.t==='home')));if(id==='enquire'){document.getElementById('enquireForm').style.display='block';document.getElementById('enquireOk').style.display='none';}window.scrollTo({top:0,behavior:'smooth'});}
-function showSuccess(){document.getElementById('enquireForm').style.display='none';document.getElementById('enquireOk').style.display='block';}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2400);}
-buildHero();render();
+
+const allProperties = [
+  {
+    id: 'limestone',
+    title: 'The Limestone Residence',
+    region: 'Island',
+    loc: 'Ikoyi, Lagos',
+    meta: 'Lagos Island · Terrace Duplex',
+    type: 'Terrace Duplex',
+    beds: '5 En-suite',
+    sqm: '680 sqm',
+    priceNgn: 950000000,
+    priceUsd: 680000,
+    story: 'A serene sanctuary carved of pale Portuguese limestone and rich teak millwork, discretely positioned in old Ikoyi. Double-height reception rooms look out upon a sheltered courtyard pool.',
+    img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+    desc: 'Pale stone, warm teak and morning sunlight in Old Ikoyi.'
+  },
+  {
+    id: 'palm',
+    title: 'Palm Court Villa',
+    region: 'Island',
+    loc: 'Ikoyi, Lagos',
+    meta: 'Lagos Island · Waterfront Villa',
+    type: 'Villa',
+    beds: '6 En-suite',
+    sqm: '1,100 sqm',
+    priceNgn: 1850000000,
+    priceUsd: 1320000,
+    story: 'Expansive private estate bounded by deep lagoon water with private boat slip, Italian marble kitchens, infinity reflection pool and staff quarters.',
+    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    desc: 'Private dock and lagoon vistas in prime Ikoyi.'
+  },
+  {
+    id: 'harbour',
+    title: 'Harbour Residences Penthouse',
+    region: 'Island',
+    loc: 'Victoria Island, Lagos',
+    meta: 'Lagos Island · Penthouse',
+    type: 'Residence',
+    beds: '4 En-suite',
+    sqm: '540 sqm',
+    priceNgn: 780000000,
+    priceUsd: 560000,
+    story: 'Dramatic floor-to-ceiling curtain wall glazing offering uninterrupted sunset views of the Atlantic ocean and harbour channel.',
+    img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',
+    desc: 'Uninterrupted ocean sunsets from Victoria Island.'
+  },
+  {
+    id: 'shore',
+    title: 'Banana Island Shoreline Manor',
+    region: 'Island',
+    loc: 'Banana Island, Ikoyi',
+    meta: 'Lagos Island · Private Manor',
+    type: 'Villa',
+    beds: '7 En-suite',
+    sqm: '1,450 sqm',
+    priceNgn: 3200000000,
+    priceUsd: 2280000,
+    story: 'The pinnacle of private residential architecture in Nigeria. Maximum security enclave with private jetty, 12-car subterranean gallery, and dedicated wellness spa.',
+    img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+    desc: 'Bespoke ultra-luxury on Banana Island shoreline.'
+  },
+  {
+    id: 'orchid',
+    title: 'Orchid Terrace',
+    region: 'Island',
+    loc: 'Lekki Phase 1, Lagos',
+    meta: 'Lagos Island · Contemporary Terrace',
+    type: 'Terrace',
+    beds: '4 En-suite',
+    sqm: '420 sqm',
+    priceNgn: 420000000,
+    priceUsd: 300000,
+    story: 'Minimalist contemporary lines, softened by landscaped pocket gardens, automated rooftop lounge, and smart home climate zoning.',
+    img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+    desc: 'Sleek contemporary elegance in Lekki Phase 1.'
+  },
+  {
+    id: 'courtyard',
+    title: 'The Courtyard House',
+    region: 'Mainland',
+    loc: 'Ikeja GRA, Lagos',
+    meta: 'Lagos Mainland · Family Residence',
+    type: 'Residence',
+    beds: '5 En-suite',
+    sqm: '750 sqm',
+    priceNgn: 650000000,
+    priceUsd: 465000,
+    story: 'Arranged around a private central landscaped atrium shaded by mature tropical trees on an exceptionally quiet, tree-lined close in Ikeja GRA.',
+    img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cd00?w=1200&q=80',
+    desc: 'Light-filled family living around a lush garden court in Ikeja GRA.'
+  },
+  {
+    id: 'gra',
+    title: 'GRA Heritage Townhouse',
+    region: 'Mainland',
+    loc: 'Ikeja GRA, Lagos',
+    meta: 'Lagos Mainland · Townhouse',
+    type: 'Terrace',
+    beds: '4 En-suite',
+    sqm: '480 sqm',
+    priceNgn: 480000000,
+    priceUsd: 345000,
+    story: 'Timeless colonial proportions reimagined with polished terrazzo, solar micro-grid, and high acoustic separation in residential GRA.',
+    img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
+    desc: 'Reimagined timeless elegance on quiet Ikeja avenue.'
+  },
+  {
+    id: 'yaba',
+    title: 'The Creative Quarter Penthouse',
+    region: 'Mainland',
+    loc: 'Yaba, Lagos',
+    meta: 'Lagos Mainland · Modern Flat',
+    type: 'Residence',
+    beds: '3 En-suite',
+    sqm: '310 sqm',
+    priceNgn: 290000000,
+    priceUsd: 210000,
+    story: 'Architecturally striking loft-style residence adjacent to the tech hub, featuring exposed concrete, floor-to-ceiling library, and rooftop deck.',
+    img: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80',
+    desc: 'Loft aesthetics and city horizon views in Yaba.'
+  }
+];
+
+/* =======================================================
+   App State & Persistence
+   ======================================================= */
+let currentArea = 'island';
+let currency = localStorage.getItem('mirvai_currency') || 'NGN';
+let privacyMode = localStorage.getItem('mirvai_privacy') === 'true';
+let savedIds = JSON.parse(localStorage.getItem('mirvai_saved') || '[]');
+let activePropertyId = 'limestone';
+let previousView = 'home';
+let heroIdx = 0;
+let heroTimer;
+let activeCategory = 'all';
+
+/* =======================================================
+   Currency & Pricing Helpers
+   ======================================================= */
+function formatPrice(ngn, usd) {
+  if (privacyMode) return 'Valuation on Request';
+  if (currency === 'USD') {
+    return '$' + usd.toLocaleString();
+  }
+  return '₦' + ngn.toLocaleString();
+}
+
+function toggleCurrency() {
+  currency = currency === 'NGN' ? 'USD' : 'NGN';
+  localStorage.setItem('mirvai_currency', currency);
+  document.getElementById('currLabel').textContent = currency === 'NGN' ? 'NGN (₦)' : 'USD ($)';
+  document.getElementById('profileCurrVal').textContent = currency === 'NGN' ? 'NGN (₦)' : 'USD ($)';
+  renderHome();
+  renderExplore();
+  renderSaved();
+  if (document.getElementById('detail').classList.contains('active')) {
+    openDetail(activePropertyId);
+  }
+  toast(`Currency switched to ${currency}`);
+}
+
+function togglePrivacyMode() {
+  privacyMode = !privacyMode;
+  localStorage.setItem('mirvai_privacy', privacyMode ? 'true' : 'false');
+  document.getElementById('privacyVal').textContent = privacyMode ? 'Active (Concealed)' : 'Off';
+  renderHome();
+  renderExplore();
+  renderSaved();
+  if (document.getElementById('detail').classList.contains('active')) {
+    openDetail(activePropertyId);
+  }
+  toast(privacyMode ? 'Discreet valuation mode active' : 'Standard valuation mode restored');
+}
+
+/* =======================================================
+   Hero Slider
+   ======================================================= */
+function buildHero() {
+  const track = document.getElementById('heroTrack');
+  const dots = document.getElementById('heroDots');
+  if (!track || !dots) return;
+  track.innerHTML = '';
+  dots.innerHTML = '';
+
+  heroSlides.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'hero-slide' + (i === 0 ? ' on' : '');
+    if (s.type === 'video') {
+      el.innerHTML = `<video muted loop playsinline preload="metadata" poster="${s.poster||''}"><source src="${s.src}" type="video/mp4"></video>`;
+    } else {
+      el.innerHTML = `<img src="${s.src}" alt="Luxury Real Estate">`;
+    }
+    track.appendChild(el);
+
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => goHero(i);
+    dots.appendChild(d);
+  });
+
+  playHeroVideo(0);
+  clearInterval(heroTimer);
+  heroTimer = setInterval(() => goHero((heroIdx + 1) % heroSlides.length), 5500);
+}
+
+function goHero(i) {
+  heroIdx = i;
+  document.querySelectorAll('.hero-slide').forEach((s, n) => s.classList.toggle('on', n === i));
+  document.querySelectorAll('.dot').forEach((d, n) => d.classList.toggle('on', n === i));
+  playHeroVideo(i);
+}
+
+function playHeroVideo(i) {
+  document.querySelectorAll('.hero-slide video').forEach((v, n) => {
+    if (n === i) { v.play().catch(() => {}); } else { v.pause(); }
+  });
+}
+
+/* =======================================================
+   Home View Rendering
+   ======================================================= */
+function renderHome() {
+  const isIsland = currentArea === 'island';
+  const filtered = allProperties.filter(p => isIsland ? p.region === 'Island' : p.region === 'Mainland');
+  const feat = filtered[0] || allProperties[0];
+  const others = filtered.slice(1);
+
+  // Showcase featured card
+  const showEl = document.getElementById('show');
+  if (showEl && feat) {
+    const isSaved = savedIds.includes(feat.id);
+    showEl.innerHTML = `
+      <article class="show-card">
+        <div class="show-img-wrap" onclick="openDetail('${feat.id}')">
+          <img class="show-img" src="${feat.img}" alt="${feat.title}">
+          <div class="badge-price-corner">${formatPrice(feat.priceNgn, feat.priceUsd)}</div>
+          <button class="btn-save-corner ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation();toggleSave('${feat.id}')" aria-label="Save">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          </button>
+        </div>
+        <div class="show-body">
+          <div class="show-meta">${feat.meta}</div>
+          <h2 class="show-title" onclick="openDetail('${feat.id}')">${feat.title}</h2>
+          <p class="show-desc">${feat.desc}</p>
+          <div class="show-specs">
+            <div class="spec-item">🛏 ${feat.beds}</div>
+            <div class="spec-item">📐 ${feat.sqm}</div>
+            <div class="spec-item">📍 ${feat.loc}</div>
+          </div>
+          <div class="show-actions">
+            <button class="show-link" onclick="openDetail('${feat.id}')">View Residence Details →</button>
+            <button class="btn-view-quick" onclick="openDetail('${feat.id}')">Inquire</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  // Horizontal rail
+  const railEl = document.getElementById('rail');
+  if (railEl) {
+    railEl.innerHTML = others.map(p => {
+      const isSaved = savedIds.includes(p.id);
+      return `
+        <article class="tile">
+          <div class="tile-img-wrap" onclick="openDetail('${p.id}')">
+            <img src="${p.img}" alt="${p.title}">
+            <div class="tile-price">${formatPrice(p.priceNgn, p.priceUsd)}</div>
+            <button class="tile-save ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation();toggleSave('${p.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+          </div>
+          <div class="tile-body" onclick="openDetail('${p.id}')">
+            <h4>${p.title}</h4>
+            <p>${p.loc}</p>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+}
+
+function setArea(a, btn) {
+  currentArea = a;
+  document.querySelectorAll('.seg').forEach(s => s.classList.toggle('on', s.dataset.a === a));
+  renderHome();
+}
+
+/* =======================================================
+   Explore View Rendering
+   ======================================================= */
+function filterCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+  filterExplore();
+}
+
+function renderExplore() {
+  filterExplore();
+}
+
+function filterExplore() {
+  const q = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+  const grid = document.getElementById('exploreGrid');
+  if (!grid) return;
+
+  const matches = allProperties.filter(p => {
+    const matchesCat = activeCategory === 'all' || 
+                       p.region === activeCategory || 
+                       p.type.toLowerCase().includes(activeCategory.toLowerCase());
+    const matchesQuery = !q || 
+                         p.title.toLowerCase().includes(q) || 
+                         p.loc.toLowerCase().includes(q) || 
+                         p.desc.toLowerCase().includes(q) ||
+                         p.type.toLowerCase().includes(q);
+    return matchesCat && matchesQuery;
+  });
+
+  if (matches.length === 0) {
+    grid.innerHTML = `
+      <div class="empty">
+        <div class="sym">—</div>
+        <h3>No properties match</h3>
+        <p>Try searching for "Ikoyi", "Villa", "Banana Island" or clear the filters.</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = matches.map(p => {
+    const isSaved = savedIds.includes(p.id);
+    return `
+      <article class="show-card">
+        <div class="show-img-wrap" onclick="openDetail('${p.id}')">
+          <img class="show-img" src="${p.img}" alt="${p.title}">
+          <div class="badge-price-corner">${formatPrice(p.priceNgn, p.priceUsd)}</div>
+          <button class="btn-save-corner ${isSaved ? 'saved' : ''}" onclick="event.stopPropagation();toggleSave('${p.id}')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          </button>
+        </div>
+        <div class="show-body">
+          <div class="show-meta">${p.meta}</div>
+          <h3 class="show-title" onclick="openDetail('${p.id}')">${p.title}</h3>
+          <p class="show-desc">${p.desc}</p>
+          <div class="show-specs">
+            <div class="spec-item">🛏 ${p.beds}</div>
+            <div class="spec-item">📐 ${p.sqm}</div>
+            <div class="spec-item">📍 ${p.loc}</div>
+          </div>
+          <div class="show-actions">
+            <button class="show-link" onclick="openDetail('${p.id}')">View Residence →</button>
+            <button class="btn-view-quick" onclick="openDetail('${p.id}')">View Details</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+/* =======================================================
+   Detail View
+   ======================================================= */
+function openDetail(id) {
+  const p = allProperties.find(x => x.id === id);
+  if (!p) return;
+  activePropertyId = id;
+
+  document.getElementById('dImg').src = p.img;
+  document.getElementById('dPrice').textContent = formatPrice(p.priceNgn, p.priceUsd);
+  document.getElementById('dMeta').textContent = p.meta;
+  document.getElementById('dTitle').textContent = p.title;
+  document.getElementById('dStory').textContent = p.story || p.desc;
+  document.getElementById('dArea').textContent = p.loc;
+  document.getElementById('dType').textContent = p.type;
+  document.getElementById('dBeds').textContent = p.beds;
+  document.getElementById('dSqm').textContent = p.sqm;
+
+  const isSaved = savedIds.includes(p.id);
+  const saveBtn = document.getElementById('dSaveBtn');
+  if (saveBtn) saveBtn.classList.toggle('saved', isSaved);
+
+  updateCalculator();
+  go('detail');
+}
+
+function toggleSaveCurrent() {
+  toggleSave(activePropertyId);
+  const isSaved = savedIds.includes(activePropertyId);
+  const saveBtn = document.getElementById('dSaveBtn');
+  if (saveBtn) saveBtn.classList.toggle('saved', isSaved);
+}
+
+function updateCalculator() {
+  const p = allProperties.find(x => x.id === activePropertyId);
+  if (!p) return;
+
+  const dpPct = parseInt(document.getElementById('dpSlider')?.value || '30', 10);
+  const tenureYears = parseInt(document.getElementById('tenureSlider')?.value || '10', 10);
+  
+  document.getElementById('dpPctVal').textContent = dpPct + '%';
+  document.getElementById('tenureVal').textContent = tenureYears + ' Years';
+
+  const totalPrice = currency === 'USD' ? p.priceUsd : p.priceNgn;
+  const downPayment = (totalPrice * dpPct) / 100;
+  const loanAmount = totalPrice - downPayment;
+  
+  document.getElementById('dpAmount').textContent = currency === 'USD' ? '$' + Math.round(downPayment).toLocaleString() : '₦' + Math.round(downPayment).toLocaleString();
+
+  // 16% annualized prime mortgage
+  const annualRate = 0.16;
+  const monthlyRate = annualRate / 12;
+  const numPayments = tenureYears * 12;
+  const monthlyPayment = (loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments))) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+  document.getElementById('calcMonthly').textContent = currency === 'USD' ? '$' + Math.round(monthlyPayment).toLocaleString() + '/mo' : '₦' + Math.round(monthlyPayment).toLocaleString() + '/mo';
+}
+
+function enquireCurrentProperty() {
+  const p = allProperties.find(x => x.id === activePropertyId);
+  if (p) {
+    document.getElementById('eqProperty').value = `${p.title} (${p.loc})`;
+  }
+  go('enquire');
+}
+
+function chatWhatsappCurrent() {
+  const p = allProperties.find(x => x.id === activePropertyId);
+  const text = encodeURIComponent(`Hello MIRVAI, I am interested in scheduling a private consultation regarding ${p ? p.title + ' in ' + p.loc : 'Lagos Luxury Properties'}.`);
+  window.open(`https://wa.me/2348000000000?text=${text}`, '_blank');
+}
+
+/* =======================================================
+   Saved / Shortlist Operations
+   ======================================================= */
+function toggleSave(id) {
+  const idx = savedIds.indexOf(id);
+  if (idx > -1) {
+    savedIds.splice(idx, 1);
+    toast('Removed from shortlist');
+  } else {
+    savedIds.push(id);
+    toast('Saved to your private shortlist');
+  }
+  localStorage.setItem('mirvai_saved', JSON.stringify(savedIds));
+  updateSavedBadge();
+  renderHome();
+  renderExplore();
+  renderSaved();
+}
+
+function updateSavedBadge() {
+  const count = savedIds.length;
+  const badge = document.getElementById('tabSavedBadge');
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
+  }
+  const profCount = document.getElementById('profileSavedCount');
+  if (profCount) {
+    profCount.textContent = `${count} item${count === 1 ? '' : 's'}`;
+  }
+}
+
+function renderSaved() {
+  const listEl = document.getElementById('savedList');
+  const emptyEl = document.getElementById('savedEmpty');
+  const actionsEl = document.getElementById('savedActions');
+  if (!listEl) return;
+
+  const savedProps = allProperties.filter(p => savedIds.includes(p.id));
+
+  if (savedProps.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    actionsEl.style.display = 'none';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  actionsEl.style.display = 'block';
+  document.getElementById('savedCountBtn').textContent = savedProps.length;
+
+  listEl.innerHTML = savedProps.map(p => `
+    <div class="saved-item-card">
+      <img class="saved-item-img" src="${p.img}" alt="${p.title}" onclick="openDetail('${p.id}')">
+      <div class="saved-item-info">
+        <div class="saved-item-meta">${p.meta}</div>
+        <h4 onclick="openDetail('${p.id}')">${p.title}</h4>
+        <div class="saved-item-price">${formatPrice(p.priceNgn, p.priceUsd)}</div>
+        <button class="saved-item-remove" onclick="toggleSave('${p.id}')">✕ Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function enquireAllSaved() {
+  const titles = allProperties.filter(p => savedIds.includes(p.id)).map(p => p.title).join(', ');
+  document.getElementById('eqProperty').value = `Shortlist: ${titles}`;
+  go('enquire');
+}
+
+/* =======================================================
+   Enquiry Submission & VIP Ticket
+   ======================================================= */
+function submitEnquiry() {
+  const name = document.getElementById('eqName')?.value || 'Client';
+  const prop = document.getElementById('eqProperty')?.value || 'General Portfolio';
+
+  const randomRef = 'MIR-' + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById('ticketCode').textContent = randomRef;
+
+  document.getElementById('enquireForm').style.display = 'none';
+  document.getElementById('enquireOk').style.display = 'block';
+  toast('VIP appointment inquiry submitted');
+}
+
+function openWaWithTicket() {
+  const ref = document.getElementById('ticketCode')?.textContent || 'MIR-2026';
+  const name = document.getElementById('eqName')?.value || '';
+  const prop = document.getElementById('eqProperty')?.value || '';
+  const msg = encodeURIComponent(`Hello MIRVAI Concierge, my appointment reference is ${ref} (${name}). I am interested in: ${prop}.`);
+  window.open(`https://wa.me/2348000000000?text=${msg}`, '_blank');
+}
+
+/* =======================================================
+   Profile Concierge Actions
+   ======================================================= */
+function requestBriefingCall() {
+  toast('Request sent to Folashade Adeleke. Our desk will connect with you.');
+}
+
+function bookPrivilege(title) {
+  toast(`Privilege requested: ${title}. Your advisor has been notified.`);
+}
+
+/* =======================================================
+   Navigation Router
+   ======================================================= */
+function go(id) {
+  const currentView = document.querySelector('.view.active')?.id;
+  if (currentView && currentView !== 'detail') {
+    previousView = currentView;
+  }
+
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+  }
+
+  // Update tabs (5-tab navigation)
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('on', t.dataset.t === id || (id === 'detail' && t.dataset.t === 'home'));
+  });
+
+  if (id === 'explore') {
+    filterExplore();
+  } else if (id === 'saved') {
+    renderSaved();
+  } else if (id === 'enquire') {
+    document.getElementById('enquireForm').style.display = 'block';
+    document.getElementById('enquireOk').style.display = 'none';
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack() {
+  go(previousView || 'home');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => {
+    t.style.display = 'none';
+  }, 2800);
+}
+
+/* =======================================================
+   Initialization
+   ======================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  buildHero();
+  renderHome();
+  renderExplore();
+  updateSavedBadge();
+
+  if (localStorage.getItem('mirvai_currency') === 'USD') {
+    currency = 'USD';
+    const currEl = document.getElementById('currLabel');
+    if (currEl) currEl.textContent = 'USD ($)';
+    const profCurrEl = document.getElementById('profileCurrVal');
+    if (profCurrEl) profCurrEl.textContent = 'USD ($)';
+  }
+
+  if (privacyMode) {
+    const pEl = document.getElementById('privacyVal');
+    if (pEl) pEl.textContent = 'Active (Concealed)';
+  }
+});
 </script>
 </body>
 </html>

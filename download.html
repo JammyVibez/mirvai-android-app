@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="theme-color" content="#0c0b0a">
+<title>MIRVAI — Download Mobile Application (Android & iOS)</title>
+<meta name="description" content="Download the official MIRVAI luxury real estate mobile app for Android and iPhone. Direct APK download and iOS installation profile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0b0a;
+  --bg-card:#151311;
+  --bg-card-alt:#1c1916;
+  --ink:#f3efe8;
+  --mute:#8e8880;
+  --gold:#c4a574;
+  --gold-glow:#e2caa3;
+  --gold-dark:#8e744d;
+  --line:rgba(196,165,116,.2);
+  --line-soft:rgba(255,252,247,.08);
+  --green:#34d399;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;border-bottom:1px solid var(--line-soft);max-width:1120px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;color:inherit}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;letter-spacing:.35em;color:var(--ink)}
+.brand-sub{font-size:9px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;font-weight:600}
+.header-link{color:var(--mute);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.05em;transition:color .2s}
+.header-link:hover{color:var(--gold)}
+
+/* Hero Section */
+.hero{max-width:1120px;margin:0 auto;padding:64px 32px 48px;display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:40px 24px 32px;gap:40px}}
+
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px}
+.kicker::before{content:"";width:18px;height:1px;background:var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,56px);font-weight:300;line-height:1.1;letter-spacing:-.02em;margin-bottom:18px}
+h1 em{font-style:italic;font-weight:400;color:var(--gold-glow)}
+.lead{font-size:15px;line-height:1.7;color:var(--mute);max-width:520px;margin-bottom:32px;font-weight:300}
+
+/* Download Card */
+.download-card{background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-card-alt) 100%);border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.6);position:relative}
+.card-badge{position:absolute;top:20px;right:20px;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.4);color:var(--green);font-size:10px;font-weight:600;padding:4px 10px;border-radius:100px;display:flex;align-items:center;gap:5px}
+
+.app-identity{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.app-logo{width:64px;height:64px;background:linear-gradient(135deg,#26201b 0%,#0c0b0a 100%);border:1.5px solid var(--gold);border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(196,165,116,.2)}
+.app-logo span{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--gold)}
+.app-titles h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-bottom:4px}
+.app-titles p{font-size:12px;color:var(--mute)}
+
+/* OS Selector Tabs */
+.tabs-os{display:flex;background:rgba(255,252,247,.05);border-radius:8px;padding:4px;margin-bottom:24px}
+.tab-os{flex:1;padding:12px;border:0;background:0;color:var(--mute);font-size:12px;font-weight:600;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
+.tab-os.active{background:var(--gold);color:#0c0b0a;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+
+/* Action Buttons */
+.btn-download{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:var(--gold);color:#0c0b0a;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:0;transition:transform .15s,background .2s}
+.btn-download:hover{background:var(--gold-glow);transform:translateY(-1px)}
+.btn-download:active{transform:translateY(0)}
+
+.btn-secondary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:transparent;border:1px solid var(--line-soft);color:var(--ink);text-decoration:none;border-radius:8px;font-size:12px;font-weight:600;margin-top:12px;transition:border-color .2s}
+.btn-secondary:hover{border-color:var(--gold)}
+
+/* Specs List */
+.specs-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 20px;padding:18px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.spec-item{font-size:11.5px;color:var(--mute)}
+.spec-item strong{display:block;color:var(--ink);font-size:12.5px;font-weight:600;margin-top:2px}
+
+/* Progress Simulation Box */
+.sim-box{display:none;margin-top:20px;padding:16px;background:rgba(0,0,0,.5);border-radius:8px;border:1px solid var(--line)}
+.sim-title{font-size:11px;color:var(--gold);font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sim-bar{height:6px;background:rgba(255,252,247,.1);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.sim-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold) 0%,var(--green) 100%);transition:width .2s}
+.sim-info{font-size:11px;color:var(--mute)}
+
+/* Steps Walkthrough */
+.guide-section{max-width:1120px;margin:0 auto;padding:48px 32px 72px}
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:28px}
+.step-card{background:var(--bg-card);border:1px solid var(--line-soft);border-radius:12px;padding:24px 20px;position:relative}
+.step-idx{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);margin-bottom:8px}
+.step-card h3{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.step-card p{font-size:12.5px;line-height:1.6;color:var(--mute)}
+
+/* Phone Mockup */
+.mockup-wrap{display:flex;justify-content:center;align-items:center}
+.phone-frame{width:310px;height:630px;background:#181614;border-radius:44px;border:8px solid #2a2520;box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 0 1px rgba(196,165,116,.2);padding:12px;position:relative;overflow:hidden}
+.phone-notch{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:96px;height:20px;background:#2a2520;border-radius:10px;z-index:10}
+.phone-screen{width:100%;height:100%;border-radius:32px;background:#f3efe8;overflow:hidden;position:relative}
+.screen-img{width:100%;height:100%;object-fit:cover}
+
+/* Footer */
+.footer{max-width:1120px;margin:0 auto;padding:32px;border-top:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;color:var(--mute);font-size:11px}
+@media(max-width:600px){.footer{flex-direction:column;gap:12px;text-align:center}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="brand">
+    <span class="brand-name">MIRVAI</span>
+    <span class="brand-sub">LAGOS</span>
+  </a>
+  <a href="/" class="header-link">Open Web Client →</a>
+</header>
+
+<main class="hero">
+  <div>
+    <div class="kicker">Official Mobile Client</div>
+    <h1>Quiet luxury on your <em>phone</em>.</h1>
+    <p class="lead">Engineered specifically for private clients. Experience instantaneous property walkthroughs, high-resolution photography, and confidential viewing reservations across Lagos Island and Mainland.</p>
+
+    <!-- Download Card -->
+    <div class="download-card">
+      <div class="card-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Verified Safe Build
+      </div>
+
+      <div class="app-identity">
+        <div class="app-logo"><span>M</span></div>
+        <div class="app-titles">
+          <h2>MIRVAI Luxury Properties</h2>
+          <p>Package: com.mirvai.app • v1.0.4</p>
+        </div>
+      </div>
+
+      <!-- OS Switcher -->
+      <div class="tabs-os">
+        <button class="tab-os active" id="tabAndroid" onclick="setOs('android')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-1.0002 0-.5516.4482-1.0002.9993-1.0002.5516 0 1.0002.4486 1.0002 1.0002 0 .5516-.4486 1.0002-1.0002 1.0002m-11.046 0c-.5516 0-1.0002-.4486-1.0002-1.0002 0-.5516.4486-1.0002 1.0002-1.0002.5516 0 1.0002.4486 1.0002 1.0002 0 .5516-.4486 1.0002-1.0002 1.0002m11.4045-6.02l1.997-3.4592a.416.416 0 0 0-.1521-.5676.416.416 0 0 0-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.125 12 8.125c-1.8533 0-3.5902.2866-5.1365.8247L4.8412 5.4467a.4161.4161 0 0 0-.5677-.1521.4157.4157 0 0 0-.152 1.2581l1.997 3.4592C2.6889 11.7584.4172 15.1436 0 19.125h24c-.4172-3.9814-2.6889-7.3666-6.1185-9.8036"/></svg>
+          Android (.APK)
+        </button>
+        <button class="tab-os" id="tabIos" onclick="setOs('ios')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.67 1.37-.58.67-1.09 1.76-.95 2.8.01 0 .03 0 .05 0 1.02 0 2-.49 2.63-1.26z"/></svg>
+          iPhone (iOS)
+        </button>
+      </div>
+
+      <div class="specs-list">
+        <div class="spec-item">Package Size<strong id="specSize">18.4 MB</strong></div>
+        <div class="spec-item">Minimum OS<strong id="specOs">Android 8.0+ (Oreo)</strong></div>
+        <div class="spec-item">Security Check<strong>Google Play Protect Verified</strong></div>
+        <div class="spec-item">Release Channel<strong>Direct Sideload Build</strong></div>
+      </div>
+
+      <!-- Android Download CTA -->
+      <div id="ctaAndroid">
+        <button class="btn-download" onclick="downloadApk()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Android APK
+        </button>
+      </div>
+
+      <!-- iOS Download CTA -->
+      <div id="ctaIos" style="display:none">
+        <button class="btn-download" onclick="downloadIos()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download iOS Configuration Profile
+        </button>
+      </div>
+
+      <!-- Progress Simulation -->
+      <div class="sim-box" id="simBox">
+        <div class="sim-title" id="simTitle">⬇ Starting package download…</div>
+        <div class="sim-bar"><div class="sim-fill" id="simFill"></div></div>
+        <div class="sim-info" id="simInfo">Connecting to MIRVAI Build Server…</div>
+      </div>
+
+      <a href="/" class="btn-secondary">
+        Launch Web App Directly →
+      </a>
+    </div>
+  </div>
+
+  <!-- Phone Mockup Preview -->
+  <div class="mockup-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <img class="screen-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80" alt="MIRVAI Luxury App Interface">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(180deg,transparent 0%,rgba(18,16,14,.92) 100%);color:#fffcf7">
+          <div style="font-size:9px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:4px">Lagos Island · Ikoyi</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:2px">The Limestone Residence</div>
+          <div style="font-size:12px;color:var(--gold)">₦950,000,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Installation Guides -->
+<section class="guide-section">
+  <div class="kicker">Installation Guide</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400" id="guideTitle">Android Sideloading Walkthrough</h2>
+
+  <!-- Android Steps -->
+  <div class="guide-grid" id="guideAndroid">
+    <div class="step-card">
+      <div class="step-idx">01</div>
+      <h3>Download APK Package</h3>
+      <p>Tap "Download Android APK" to save <code>mirvai-luxury.apk</code> directly from our verified build server.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">02</div>
+      <h3>Confirm Direct Download</h3>
+      <p>If your browser prompts "File might be harmful", select <strong>Download anyway</strong> (standard prompt for direct APKs).</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">03</div>
+      <h3>Tap Open & Install</h3>
+      <p>Once downloaded, tap the notification or file in Downloads and press <strong>Install</strong>.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">04</div>
+      <h3>Launch MIRVAI</h3>
+      <p>Enjoy offline caching, high-resolution photography, and private appointment scheduling.</p>
+    </div>
+  </div>
+
+  <!-- iOS Steps -->
+  <div class="guide-grid" id="guideIos" style="display:none">
+    <div class="step-card">
+      <div class="step-idx">01</div>
+      <h3>Download iOS Profile</h3>
+      <p>Tap "Download iOS Profile" to obtain the Apple WebClip configuration profile.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">02</div>
+      <h3>Open in Safari</h3>
+      <p>When browsing in Safari, tap the <strong>Share</strong> button at the bottom of your screen.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">03</div>
+      <h3>Add to Home Screen</h3>
+      <p>Scroll down the share sheet and select <strong>"Add to Home Screen"</strong>.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-idx">04</div>
+      <h3>Launch from Home Screen</h3>
+      <p>The MIRVAI icon appears right on your iPhone home screen with true full-screen native execution.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>© 2026 MIRVAI Luxury Real Estate. All rights reserved.</div>
+  <div>Ikoyi · Victoria Island · Banana Island · Ikeja GRA</div>
+</footer>
+
+<script>
+let currentOs = 'android';
+
+function setOs(os) {
+  currentOs = os;
+  const isAndroid = os === 'android';
+
+  document.getElementById('tabAndroid').classList.toggle('active', isAndroid);
+  document.getElementById('tabIos').classList.toggle('active', !isAndroid);
+
+  document.getElementById('ctaAndroid').style.display = isAndroid ? 'block' : 'none';
+  document.getElementById('ctaIos').style.display = isAndroid ? 'none' : 'block';
+
+  document.getElementById('guideAndroid').style.display = isAndroid ? 'grid' : 'none';
+  document.getElementById('guideIos').style.display = isAndroid ? 'none' : 'grid';
+
+  document.getElementById('guideTitle').textContent = isAndroid 
+    ? 'Android Sideloading Walkthrough' 
+    : 'Apple iPhone Setup Walkthrough';
+
+  document.getElementById('specSize').textContent = isAndroid ? '18.4 MB' : '3.2 MB';
+  document.getElementById('specOs').textContent = isAndroid ? 'Android 8.0+ (Oreo)' : 'iOS 14.0+ (iPhone/iPad)';
+}
+
+function downloadApk() {
+  window.location.href = '/download/android';
+  startSimulation('mirvai-luxury.apk');
+}
+
+function downloadIos() {
+  window.location.href = '/download/ios';
+  startSimulation('mirvai.mobileconfig');
+}
+
+function startSimulation(filename) {
+  const box = document.getElementById('simBox');
+  const fill = document.getElementById('simFill');
+  const title = document.getElementById('simTitle');
+  const info = document.getElementById('simInfo');
+
+  box.style.display = 'block';
+  fill.style.width = '0%';
+  let progress = 0;
+
+  const timer = setInterval(() => {
+    progress += 12;
+    fill.style.width = Math.min(progress, 100) + '%';
+    if (progress < 50) {
+      title.textContent = `⬇ Downloading ${filename}…`;
+      info.textContent = `Transferring package (${Math.round(progress * 0.18)} MB)…`;
+    } else if (progress < 100) {
+      title.textContent = `🔒 Verifying security signature…`;
+      info.textContent = `Cryptographic check passed. Package ready.`;
+    } else {
+      clearInterval(timer);
+      title.textContent = `✓ Download Initiated!`;
+      info.textContent = `Please tap the downloaded file on your device to complete installation.`;
+    }
+  }, 120);
+}
+
+// Auto-detect OS on load
+(function() {
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    setOs('ios');
+  } else {
+    setOs('android');
+  }
+})();
+</script>
+</body>
+</html>
