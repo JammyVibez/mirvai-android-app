@@ -17,24 +17,24 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
 
-    // Live deployed UI — change to file:///android_asset/index.html for fully offline
+    // Live MIRVAI UI (hero + luxury redesign) — always up to date
     private val APP_URL = "https://mirvai-app-ten.vercel.app"
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Edge-to-edge + dark status bar for luxury feel
+        // Edge-to-edge + dark status bar matching the cinematic hero
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.parseColor("#0f1a16")
-        window.navigationBarColor = Color.parseColor("#ffffff")
+        window.statusBarColor = Color.parseColor("#0c0b0a")
+        window.navigationBarColor = Color.parseColor("#f3efe8")
         WindowInsetsControllerCompat(window, window.decorView).apply {
             isAppearanceLightStatusBars = false
             isAppearanceLightNavigationBars = true
         }
 
         webView = WebView(this).apply {
-            setBackgroundColor(Color.parseColor("#f7f4ee"))
+            setBackgroundColor(Color.parseColor("#f3efe8"))
             overScrollMode = View.OVER_SCROLL_NEVER
         }
         setContentView(webView)
@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
-                // Keep all navigation inside the app
                 return false
             }
         }
