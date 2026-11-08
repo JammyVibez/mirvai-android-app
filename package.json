@@ -1,0 +1,33 @@
+{
+  "name": "mirvai-app",
+  "version": "1.0.0",
+  "description": "MIRVAI Luxury Real Estate — Royal & Fine & Country inspired mobile app",
+  "private": true,
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "serve": "npx serve . -p 3000",
+    "cap:init": "npx cap init MIRVAI com.mirvai.app --web-dir .",
+    "cap:add": "npx cap add android",
+    "cap:sync": "npx cap sync",
+    "cap:open": "npx cap open android",
+    "android": "npx cap sync && npx cap open android"
+  },
+  "keywords": [
+    "mirvai",
+    "real-estate",
+    "luxury",
+    "lagos",
+    "capacitor",
+    "android"
+  ],
+  "author": "MIRVAI",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "serve": "^14.2.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "appId": "com.mirvai.app",
+  "appName": "MIRVAI",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
