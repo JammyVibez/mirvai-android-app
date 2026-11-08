@@ -1,48 +1,21 @@
 # MIRVAI — Luxury Real Estate App
 
-**Royal · Refined · Fine & Country inspired**
+Premium property discovery for Lagos (Island & Mainland).
 
-Premium mobile experience for MIRVAI Realty, Development & Investment.
-
-## Live demo (web)
-
+## Live app
 **https://mirvai-app-ten.vercel.app**
 
-## Real Android app
+## Features
+- Cinematic hero carousel (2 videos + 3 property images)
+- Island / Mainland toggle
+- Property detail pages
+- Private enquiry flow with confirmation
+- Calm Fine & Country–inspired luxury UI
 
-A complete native Android project is in the **`android/`** folder.
+## Android
+Open the `android/` folder in Android Studio and Run.
+The app loads the live UI from Vercel automatically.
 
-### Install on your phone
-
-1. Install [Android Studio](https://developer.android.com/studio)
-2. Open the `android` folder from this repo
-3. Connect your phone (USB debugging on) or use an emulator
-4. Click **Run ▶**
-
-Full instructions: [android/README.md](android/README.md)
-
-You can also build a shareable APK:
-
-```bash
-cd android
-./gradlew assembleDebug
-# → app/build/outputs/apk/debug/app-debug.apk
-```
-
-## Web / PWA
-
-```bash
-npm install
-npm start   # http://localhost:3000
-```
-
-## Design
-
-Deep forest `#132c25` · Soft gold `#c9a86c` · Cream `#f7f4ee`  
-Typography: Cormorant Garamond + Outfit  
-Inspired by Fine & Country.
-
----
-
-**MIRVAI** — Find. Own. Grow.  
-Lagos · Nigeria · Diaspora
+## Repo structure
+- `index.html` — full premium single-file UI
+- `android/` — native Kotlin WebView project
